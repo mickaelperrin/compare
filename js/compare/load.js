@@ -16,7 +16,7 @@ function readJsonFile(file) {
       );
     reader.onload = () => {
       try {
-        const har = JSON.parse(reader.result);
+        const har = reader.result;
         resolve(har);
       } catch (e) {
         reject(new Error('Error reading ' + file.name + ' : ' + e.message));
@@ -201,7 +201,7 @@ function loadHARsFromConfig(config) {
         },
         har2: {
           har: har2,
-          run: reworkedConfig2.run || config.har2.run || 1,
+          run: reworkedConfig2.run || config.har2.run || 0,
           label: config.har2.label || 'HAR2'
         },
         comments: config.comments || undefined,
