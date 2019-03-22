@@ -16,7 +16,7 @@ function readJsonFile(file) {
       );
     reader.onload = () => {
       try {
-        const har = JSON.parse(reader.result);
+        const har = reader.result;
         resolve(har);
       } catch (e) {
         reject(new Error('Error reading ' + file.name + ' : ' + e.message));
@@ -127,7 +127,12 @@ function loadFilesFromConfig(url) {
     .then(unparsedConfig => {
       let content;
       try {
-        content = JSON.parse(unparsedConfig);
+        if (typeof unparsedConfig === 'object') {
+          content = unparsedConfig;
+        } else {
+          content = JSON.parse(unparsedConfig);
+
+        }
       } catch (e) {
         throw new Error('Malformed config file.' + e);
       }
